@@ -20,7 +20,13 @@ Route::get('/', function () {
 Route::get('/user/register', [UserController::class, 'index']);
 Route::post('/register', [UserController::class, 'store']);
 Route::get('/user/dashboard', function () {
-    return view('dashboard');
+    return view('panel.pages.Home');
+});
+Route::get('/dashboard/orders', function () {
+    return view('panel.pages.Order');
+});
+Route::get('/dashboard/products', function () {
+    return view('panel.pages.Product');
 });
 Route::get('/user/login', [UserController::class, 'login']);
 Route::post('/login', [UserController::class, 'authenticate']);

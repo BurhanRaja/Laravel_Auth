@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,20 +15,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// User Authentication
+// GET
 Route::get('/', function () {
     return view('home');
 });
 Route::get('/user/register', [UserController::class, 'index']);
+Route::get('/user/login', [UserController::class, 'login']);
+Route::get('/logout', [UserController::class, 'logout']);
+
+// POST
 Route::post('/register', [UserController::class, 'store']);
+Route::post('/login', [UserController::class, 'authenticate']);
+
+// Dashboard
+// GET
 Route::get('/user/dashboard', function () {
     return view('panel.pages.Home');
 });
 Route::get('/dashboard/orders', function () {
     return view('panel.pages.Order');
 });
-Route::get('/dashboard/products', function () {
-    return view('panel.pages.Product');
-});
-Route::get('/user/login', [UserController::class, 'login']);
-Route::post('/login', [UserController::class, 'authenticate']);
-Route::get('/logout', [UserController::class, 'logout']);
+Route::get('/dashboard/products', [ProductController::class, 'show']);
+
+// Product CRUD
+// GET
+Route::get('/create/product', [ProductController::class, 'create']);
+Route::get('/edit/products/{id}', [ProductController::class, 'edit']);
+// POST
+Route::post('/products/created', [ProductController::class, 'store']);
+// PUT
+Route::put('/products/{product}', [ProductController::class, 'update']);
+// DELETE
+Route::delete('/products/{product}', [ProductController::class, 'delete']);

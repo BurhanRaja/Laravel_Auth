@@ -1,35 +1,37 @@
 <div class="customer-table w-100 p-5 m-4" style="background-color: #f8f8f8; border-radius:5px;">
-    <div class="table-title p-3">
+    <div class="table-title p-3 d-flex justify-content-between">
         <h3>All Products</h3>
+        <a href="/create/product"><button type="button" class="btn btn-dark">Add List <i
+                    class="fa-regular fa-plus"></i></button></a>
     </div>
     <table class="table text-dark">
         <thead>
-          <tr>
-              <th scope="col">Sr.No</th>
-              <th scope="col">Image</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-          </tr>
+            <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+            </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td><img src="{{URL::asset('images/profilePic.webp')}}" width="32" height="32" alt="" srcset="" class="rounded-circle"></td>
-            <td>Watch</td>
-            <td>This is a watch</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td><img src="{{URL::asset('images/profilePic.webp')}}" width="32" height="32" alt="" srcset="" class="rounded-circle"></td>
-            <td>TV</td>
-            <td>This is a TV</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td><img src="{{URL::asset('images/profilePic.webp')}}" width="32" height="32" alt="" srcset="" class="rounded-circle"></td>
-            <td>Laptop</td>
-            <td>This is a laptop</td>
-          </tr>
+            @foreach ($products as $product)
+                <tr>
+                    <th scope="row">1</th>
+                    <td><img src="{{ $product->productImg ? asset('admin/images/' . $product->productImg) : 'NO Image' }}"
+                            width="32" height="32" alt="" srcset="" class=""></td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->description }}</td>
+                    <td><a href="/edit/product/{{ $product->id }}"><button class="btn btn-light"><i
+                                    class="fa-sharp fa-solid fa-pen"></i></button></a></td>
+                    <td>
+                        <form action="/products/{{ $product->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-light"><i class="fa-solid fa-trash-can"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
-      </table>
+    </table>
 </div>

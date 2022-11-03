@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    // To Show the Register Page
     public function index() {
         return view('auth.register');
     }
 
+    // To Save new User data to Database and Login
     public function store(Request $request) {
         $validate = $request->validate([
             'name'=> 'required|min:5',
@@ -33,10 +35,12 @@ class UserController extends Controller
         return redirect('/user/dashboard');
     }
 
+    // Login Page
     public function login() {
         return view('auth.login');
     }
 
+    // To Authenticate or login
     public function authenticate(Request $request) {
         $validate = $request->validate([
             'email' => 'required|email',
@@ -57,6 +61,7 @@ class UserController extends Controller
         }
     }
 
+    // To logout
     public function logout() {
         auth()->logout();
         return redirect('/');

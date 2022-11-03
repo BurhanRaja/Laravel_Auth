@@ -10,6 +10,7 @@ class ProductController extends Controller
     // To return all the Products
     public function show() {
         $product = Product::all();
+
         return view('panel.pages.Product')->with([
             'products'=> $product
         ]);

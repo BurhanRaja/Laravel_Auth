@@ -14,9 +14,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($products as $product)
+            @foreach ($products as $key => $product)
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{{++$key}}</th>
                     <td><img src="{{ $product->productImg ? asset('admin/images/' . $product->productImg) : 'NO Image' }}"
                             width="32" height="32" alt="" srcset="" class=""></td>
                     <td>{{ $product->name }}</td>

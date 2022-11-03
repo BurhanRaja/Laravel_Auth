@@ -9,7 +9,7 @@
 <h3 class="text-center">Create Product</h3>
     <div class="d-flex justify-content-center align-items-center">
 
-        <form class="w-75" action="/product/created" method="POST" enctype="multipart/form-data">
+        <form class="w-75" action="/products/created" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>

@@ -28,6 +28,8 @@ class ProductController extends Controller
                 return Carbon::parse($date->created_at)->format('m'); // grouping by months
             });
 
+            dd($products);
+
         $productmcount = [];
         $productArr = [];
 

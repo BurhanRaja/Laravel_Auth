@@ -36,6 +36,8 @@ Route::get('/user/dashboard', function () {
 Route::get('/dashboard/orders', function () {
     return view('panel.pages.Order');
 });
+Route::get('/dashboard/users', [UserController::class, 'show']);
+
 Route::get('/dashboard/products', [ProductController::class, 'show']);
 
 // Product CRUD

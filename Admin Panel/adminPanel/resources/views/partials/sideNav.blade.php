@@ -20,7 +20,7 @@
             <a class="nav-link text-white {{'dashboard/products' == request()->path() ? 'active' : '' }}" href="/dashboard/products">Products</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#">Cutomers</a>
+            <a class="nav-link text-white {{'dashboard/users' == request()->path() ? 'active' : '' }}" href="/dashboard/users">Users</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="#">Messages</a>

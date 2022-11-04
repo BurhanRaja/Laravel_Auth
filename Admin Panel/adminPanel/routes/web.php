@@ -26,7 +26,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 
 // POST
 Route::post('/register', [UserController::class, 'store']);
-Route::post('/login', [UserController::class, 'authenticate']);
+Route::post('/login', [UserController::class, 'authenticate'])->name('login');
 
 // Dashboard
 // GET

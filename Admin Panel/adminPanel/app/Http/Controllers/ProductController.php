@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,7 @@ class ProductController extends Controller
             $monthDate[$key] = $month;
         }
 
+        $user = User::get();
         // $monthDate;
 
         $products = Product::select('id', 'created_at')
@@ -33,8 +35,6 @@ class ProductController extends Controller
             $productmcount[(int)$key] = count($value);
         }
 
-        $monthAll = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
         for ($i = 0; $i < 12; $i++) {
             if (!empty($productmcount[$i])) {
                 $productArr[$i] = $productmcount[$i];
@@ -45,7 +45,7 @@ class ProductController extends Controller
 
         return view('panel.pages.Product')->with([
             'products' => $product
-        ])->with(['productArr'=> $productArr]);
+        ])->with(['productArr'=> $productArr])->with(['users' => $user]);
     }
 
     public function create()
@@ -58,8 +58,10 @@ class ProductController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required|min:5',
-            'description' => 'required|min:10'
+            'description' => 'required|min:10',
         ]);
+
+        // dd(auth()->user()->id);
 
         $poidocument = $request->file('productImg');
 
@@ -71,10 +73,14 @@ class ProductController extends Controller
             $poidocument = '';
         }
 
+        $user_id = auth()->user()->id;
+
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
-            'productImg' => $poiImg
+            'productImg' => $poiImg,
+            'user_id' => $user_id,
+            'amount' => 3000
         ]);
 
         return redirect('/dashboard/products');
@@ -109,7 +115,7 @@ class ProductController extends Controller
         $product->update([
             'name' => $request->name,
             'description' => $request->description,
-            'productImg' => $poiImg
+            'productImg' => $poiImg,
         ]);
 
         return redirect('/dashboard/products');

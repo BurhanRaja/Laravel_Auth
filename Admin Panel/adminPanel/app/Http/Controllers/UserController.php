@@ -90,16 +90,14 @@ class UserController extends Controller
             ->select('users.*', 'amount_sum')
             ->get();
 
-        dd($users);
 
-        $userAmount[] = [];
-        foreach ($users as $key => $user) {
-            $userAmount[$key] = $user->product->sum->amount;
-        }
+        // $userAmount[] = [];
+        // foreach ($users as $key => $user) {
+        //     $userAmount[$key] = $user->product->sum->amount;
+        // }
 
         return view('panel.pages.User', [
-            'users' => $users,
-            'totalAmount' => $userAmount
+            'users' => $users
         ]);
     }
 }

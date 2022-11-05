@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -76,7 +77,20 @@ class UserController extends Controller
     // Getting user data
     public function show()
     {
-        $users = User::get();
+        // $users = User::with(['product' => function($query){
+        //     $query->sum('amount');
+        // }])->get();
+        // $users = User::with(['product' => function ($query) {
+        //     $query->groupBy('user_id')->select('user_id', DB::raw('SUM(amount) AS amount_sum'));
+        // }])->get();
+        $users_query = Product::groupBy('user_id')->select("user_id", DB::raw('SUM(amount) AS amount_sum'));
+
+        $users = User::leftjoin(DB::raw("({$users_query->toSql()}) AS ii"), 'ii.user_id', '=', 'users.id')
+            ->mergeBindings($users_query->getQuery())
+            ->select('users.*', 'amount_sum')
+            ->get();
+
+        dd($users);
 
         $userAmount[] = [];
         foreach ($users as $key => $user) {

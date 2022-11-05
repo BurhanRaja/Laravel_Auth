@@ -17,7 +17,11 @@
                 <th scope="row">{{++$key}}</th>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td>₹ {{$totalAmount[$key-1]}}</td>
+                @if ($user->amount_sum == "")
+                <td>₹ 0</td>
+                @else
+                <td>₹ {{$user->amount_sum}}</td>
+                @endif
             </tr>
             @endforeach
         </tbody>

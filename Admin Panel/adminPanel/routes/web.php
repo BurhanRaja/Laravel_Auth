@@ -18,7 +18,12 @@ use Illuminate\Support\Facades\Route;
 // User Authentication
 // GET
 Route::get('/', function () {
-    return view('home');
+    if (auth()->user()) {
+        return redirect('/user/dahsboard');
+    }
+    else {
+        return view('home');
+    }
 });
 Route::get('/user/register', [UserController::class, 'index']);
 Route::get('/user/login', [UserController::class, 'login']);

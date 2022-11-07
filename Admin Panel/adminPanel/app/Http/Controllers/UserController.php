@@ -80,16 +80,17 @@ class UserController extends Controller
         // $users = User::with(['product' => function($query){
         //     $query->sum('amount');
         // }])->get();
+
         // $users = User::with(['product' => function ($query) {
         //     $query->groupBy('user_id')->select('user_id', DB::raw('SUM(amount) AS amount_sum'));
         // }])->get();
+
         $users_query = Product::groupBy('user_id')->select("user_id", DB::raw('SUM(amount) AS amount_sum'));
 
-        $users = User::leftjoin(DB::raw("({$users_query->toSql()}) AS ii"), 'ii.user_id', '=', 'users.id')
+        $users = User::leftjoin(DB::raw("({$users_query->toSql()}) AS pAmount"), 'pAmount.user_id', '=', 'users.id')
             ->mergeBindings($users_query->getQuery())
             ->select('users.*', 'amount_sum')
             ->get();
-
 
         // $userAmount[] = [];
         // foreach ($users as $key => $user) {

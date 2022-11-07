@@ -4,7 +4,7 @@
         <select name="userid" id="userid">
             <option value="" default>Choose a User</option>
             @foreach ($users as $user)
-                <option value="{{$user->id}}">{{$user->name}}</option>
+                <option value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
         </select>
         <a href="/create/product"><button type="button" class="btn btn-dark">Add List <i
@@ -23,13 +23,13 @@
         <tbody>
             @foreach ($products as $key => $product)
                 <tr>
-                    <th scope="row">{{++$key}}</th>
+                    <th scope="row">{{ ++$key }}</th>
                     <td><img src="{{ $product->productImg ? asset('admin/images/' . $product->productImg) : 'NO Image' }}"
                             width="32" height="32" alt="" srcset="" class=""></td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->description }}</td>
-                    <td>₹ {{$product->amount}}</td>
-                    <td><a href="/edit/product/{{ $product->id }}"><button class="btn btn-light"><i
+                    <td>₹ {{ $product->amount }}</td>
+                    <td><a href="/edit/products/{{ $product->id }}"><button class="btn btn-light"><i
                                     class="fa-sharp fa-solid fa-pen"></i></button></a></td>
                     <td>
                         <form action="/products/{{ $product->id }}" method="POST">
@@ -42,4 +42,5 @@
             @endforeach
         </tbody>
     </table>
+    {{$products->links()}}
 </div>

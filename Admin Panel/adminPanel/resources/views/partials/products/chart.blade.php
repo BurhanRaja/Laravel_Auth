@@ -20,8 +20,7 @@
 
 <script>
 
-    const data = {!! json_encode($productArr)!!}
-    console.log(data)
+    const data = {!! json_encode($productArr) !!}
     var barChartData = {
       labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [

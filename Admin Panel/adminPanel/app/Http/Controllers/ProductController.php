@@ -12,7 +12,8 @@ class ProductController extends Controller
     // To return all the Products
     public function show()
     {
-        $product = Product::all();
+        $product = Product::latest();
+
         $monthDate[] = [];
         foreach ($product as $key => $value) {
             $month = $value->created_at->format('M');
@@ -27,8 +28,6 @@ class ProductController extends Controller
             ->groupBy(function ($date) {
                 return Carbon::parse($date->created_at)->format('m'); // grouping by months
             });
-
-            dd($products);
 
         $productmcount = [];
         $productArr = [];
@@ -46,7 +45,7 @@ class ProductController extends Controller
         }
 
         return view('panel.pages.Product')->with([
-            'products' => $product
+            'products' => $product->paginate(10)
         ])->with(['productArr'=> $productArr])->with(['users' => $user]);
     }
 

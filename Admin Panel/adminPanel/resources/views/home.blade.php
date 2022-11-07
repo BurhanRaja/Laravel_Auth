@@ -26,12 +26,17 @@
                   </li>
                 </ul>
             </div>
-            @auth
-            <a href="/logout"><button type="button" class="btn btn-primary mx-2">Logout</button></a>
+
+            @if (auth('admin')->user())
+            <a href="/admin/logout"><button type="button" class="btn btn-primary mx-2">Admin Logout</button></a>
+            @elseif (auth()->user())
+            <a href="/user/logout"><button type="button" class="btn btn-primary mx-2">User Logout</button></a>
             @else
-            <a href="/user/register"><button type="button" class="btn btn-primary mx-2">Register</button></a>
-            <a href="/user/login"><button type="button" class="btn btn-dark mx-2">Login</button></a>
-            @endauth
+            <a href="/admin/register"><button type="button" class="btn btn-primary mx-2">Admin Register</button></a>
+            <a href="/admin/login"><button type="button" class="btn btn-dark mx-2">Admin Login</button></a>
+            <a href="/user/register"><button type="button" class="btn btn-primary mx-2">User Register</button></a>
+            <a href="/user/login"><button type="button" class="btn btn-dark mx-2">User Login</button></a>
+            @endif
             </div>
           </nav>
     </header>

@@ -3,7 +3,7 @@
 @section('dash')
 
 <div class="back">
-    <a href="/dashboard/product"><button class="btn btn-light"><i class="fa-sharp fa-solid fa-arrow-left"></i></button></a>
+    <a href="/dashboard/products"><button class="btn btn-light"><i class="fa-sharp fa-solid fa-arrow-left"></i></button></a>
 </div>
 
 <h3 class="text-center">Edit Product</h3>

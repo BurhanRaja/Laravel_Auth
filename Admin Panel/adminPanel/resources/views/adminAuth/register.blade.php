@@ -1,8 +1,8 @@
 @extends('home')
 
 @section('content')
-<h2>User Register</h2>
-    <form class="w-75 mx-auto" action="/register/auth/user" method="POST">
+<h2>Admin Register</h2>
+    <form class="w-75 mx-auto" action="/register/auth/admin" method="POST">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>

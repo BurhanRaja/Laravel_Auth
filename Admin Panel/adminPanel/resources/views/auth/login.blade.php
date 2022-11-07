@@ -1,7 +1,8 @@
 @extends('home')
 
 @section('content')
-    <form class="w-75 mx-auto" action="/login" method="POST">
+<h2>User Login</h2>
+    <form class="w-75 mx-auto" action="/auth/user" method="POST">
         @csrf
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>

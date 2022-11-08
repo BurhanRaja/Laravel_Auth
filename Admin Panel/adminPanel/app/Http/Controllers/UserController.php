@@ -64,6 +64,8 @@ class UserController extends Controller
             $request->session()->regenerate();
 
             return redirect('/user/dashboard');
+        } else {
+            return redirect('/user/login');
         }
     }
 

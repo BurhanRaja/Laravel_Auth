@@ -4,61 +4,53 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
-
-    // public function __construct()
-    // {
-    //     $this->middleware('guest:admin')->except('logout');
-    // }
-
-    // Display register form
-    public function create()
+    public function index()
     {
-        return view('admin.register');
+        return view('adminAuth.register');
     }
 
     public function store(Request $request)
     {
-
-        $validate = $request->validate([
-            'name' => 'required|min:5',
+        $validator = $request->validate([
+            'name' => 'required|min:2',
             'email' => 'required|email|unique:admins',
             'password' => 'required',
             'confirm_password' => 'required|same:password'
         ]);
 
-        $password = bcrypt($request->password);
+        $hashPassword = bcrypt($request->password);
 
         try {
             $admin = Admin::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => $password,
-                'is_admin' => 1
+                'password' => $hashPassword
             ]);
 
+            $role = Role::findByName('manager', 'admin');
+            $admin->assignRole($role);
+
             auth('admin')->login($admin);
-
-            return redirect('/admin/dashboard');
-
+            return redirect('/dashboard')->with('message', 'Successfully Registered');
         } catch (\Throwable $th) {
             return redirect()->back()->withInput($request->only('name', 'email'));
         }
     }
 
-    // Display login form
     public function login()
     {
-        return view('admin.loginForm');
+        return view('adminAuth.login');
     }
 
-    public function authenticate(Request $request){
-        $validate = $request->validate([
+    public function authenticate(Request $request)
+    {
+        $validator = $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
         $credentials = [
@@ -67,11 +59,12 @@ class AdminController extends Controller
         ];
 
         $adminValid = auth('admin')->attempt($credentials);
+
         if ($adminValid) {
 
             $request->session()->regenerate();
 
-            return redirect('/admin/dashboard');
+            return redirect('/dashboard')->with('message', 'Successfully Logged in');
         }
         else {
             return redirect('/admin/login');
@@ -81,6 +74,6 @@ class AdminController extends Controller
     public function logout()
     {
         auth('admin')->logout();
-        return redirect('/');
+        return redirect('/')->with('message', 'Successfully Logged Out.');
     }
 }

@@ -139,6 +139,17 @@
             <i class="fas fa-th-large"></i>
           </a>
         </li>
+        <li class="nav-item">
+            @if(auth('admin')->user())
+                <a href="/admin/logout" type="button" class="nav-link btn btn-dark text-light">
+                    Admin Logout
+                </a>
+            @else
+                <a href="/user/logout" type="button" class="nav-link btn btn-dark text-light">
+                    User Logout
+                </a>
+            @endif
+        </li>
       </ul>
     </nav>
     <!-- /.navbar -->

@@ -1,63 +1,56 @@
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Responsive Hover Table</h3>
+        <h3 class="card-title">Responsive Hover Table</h3>
 
-      <div class="card-tools">
-        <div class="input-group input-group-sm" style="width: 150px;">
-          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+        <div class="card-tools">
+            <div class="input-group input-group-sm">
+                @if (auth('admin')->user()->can('create-product'))
+                    <a href="/create/product" type="button" class="btn btn-primary mx-2">Add Item <i
+                            class="fas fa-plus"></i></a>
+                @endif
+            </div>
 
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-default">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
         </div>
-      </div>
     </div>
     <!-- /.card-header -->
     <div class="card-body table-responsive p-0">
-      <table class="table table-hover text-nowrap">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Products</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>183</td>
-            <td>John Doe</td>
-            <td>11-7-2014</td>
-            <td><span class="tag tag-success">Approved</span></td>
-            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-          </tr>
-          <tr>
-            <td>219</td>
-            <td>Alexander Pierce</td>
-            <td>11-7-2014</td>
-            <td><span class="tag tag-warning">Pending</span></td>
-            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-          </tr>
-          <tr>
-            <td>657</td>
-            <td>Bob Doe</td>
-            <td>11-7-2014</td>
-            <td><span class="tag tag-primary">Approved</span></td>
-            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-          </tr>
-          <tr>
-            <td>175</td>
-            <td>Mike Doe</td>
-            <td>11-7-2014</td>
-            <td><span class="tag tag-danger">Denied</span></td>
-            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-          </tr>
+        <table class="table table-hover text-nowrap">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Products</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($products as $key => $product)
+                    <tr>
+                        <td>{{ $product->id }}</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $product->description }}</td>
+                        <td>₹ {{ $product->amount }}</td>
+                        @if (auth('admin')->user()->can('edit-product'))
+                            <td><a href="/edit/product/{{ $product->id }}" type="button"><i
+                                        class="fas fa-edit"></i></a>
+                            </td>
+                        @endcan
+                        @if (auth('admin')->user()->can('delete-product'))
+                            <td>
+                                <form action="/products/{{ $product->id }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </td>
+                        @endif
+                </tr>
+            @endforeach
         </tbody>
-      </table>
-    </div>
-    <!-- /.card-body -->
-  </div>
-  <!-- /.card -->
+    </table>
+</div>
+<!-- /.card-body -->
+</div>
+<!-- /.card -->

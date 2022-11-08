@@ -4,7 +4,11 @@
       <a href="index3.html" class="brand-link">
           <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
               style="opacity: .8">
-          <span class="brand-text font-weight-light">Dashboard</span>
+            @if (auth('admin')->user())
+                <span class="brand-text font-weight-light">Admin Dashboard</span>
+            @else
+                <span class="brand-text font-weight-light">User Dashboard</span>
+            @endif
       </a>
 
       <!-- Sidebar -->
@@ -15,7 +19,11 @@
                   <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
               </div>
               <div class="info">
-                  <a href="#" class="d-block">Burhanuddin Raja</a>
+                @if (auth('admin')->user())
+                    <a href="#" class="d-block">{{auth('admin')->user()->name}}</a>
+                @else
+                    <a href="#" class="d-block">{{auth()->user()->name}}</a>
+                @endif
               </div>
           </div>
 
@@ -39,7 +47,7 @@
                   <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                   <li class="nav-item">
-                      <a class="nav-link {{ '/' == request()->path() ? 'active' : '' }}" href="/">
+                      <a class="nav-link {{ 'dashboard' == request()->path() ? 'active' : '' }}" href="/dashboard">
                           <i class="nav-icon fas fa-tachometer-alt"></i>
                           <p>
                               Home
@@ -47,7 +55,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link {{ 'products' == request()->path() ? 'active' : '' }}" href="/products">
+                      <a class="nav-link {{ 'dashboard/products' == request()->path() ? 'active' : '' }}" href="/dashboard/products">
                         <i class="nav-icon fas fa-store-slash"></i>
                           <p>
                               Products
@@ -55,7 +63,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link {{ 'customers' == request()->path() ? 'active' : '' }}" href="/customers">
+                      <a class="nav-link {{ 'dashboard/customers' == request()->path() ? 'active' : '' }}" href="/dashboard/customers">
                           <i class="nav-icon fas fa-th"></i>
                           <p>
                               Customers
@@ -63,7 +71,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link {{ 'messages' == request()->path() ? 'active' : '' }}" href="/messages">
+                      <a class="nav-link {{ 'dashboard/messages' == request()->path() ? 'active' : '' }}" href="/dashboard/messages">
                           <i class="nav-icon fas fa-copy"></i>
                           <p>
                               Messages
@@ -71,7 +79,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link  {{ 'salesandrevenue' == request()->path() ? 'active' : '' }}" href="/salesandrevenue">
+                      <a class="nav-link  {{ 'dashboard/salesandrevenue' == request()->path() ? 'active' : '' }}" href="/dashboard/salesandrevenue">
                           <i class="nav-icon fas fa-chart-pie"></i>
                           <p>
                               Sales and Revenue
@@ -79,7 +87,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link {{ 'contacts' == request()->path() ? 'active' : '' }}" href="/contacts">
+                      <a class="nav-link {{ 'dashboard/contacts' == request()->path() ? 'active' : '' }}" href="/dashboard/contacts">
                           <i class="nav-icon fas fa-tree"></i>
                           <p>
                               Contacts

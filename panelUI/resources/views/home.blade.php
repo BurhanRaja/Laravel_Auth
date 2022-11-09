@@ -9,7 +9,6 @@
     </div>
     <div class="container user-btn d-flex flex-column w-25">
         <a href="/admin/login"><button type="button" class="btn btn-dark m-4">Admin Login</button></a>
-        <a href="/admin/register"><button type="button" class="btn btn-dark m-4">Admin Register</button></a>
     </div>
 </div>
 

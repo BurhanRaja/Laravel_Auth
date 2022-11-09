@@ -94,6 +94,30 @@
                           </p>
                       </a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link {{ 'dashboard/permissions' == request()->path() ? 'active' : '' }}" href="/dashboard/permissions">
+                          <i class="nav-icon fas fa-tree"></i>
+                          <p>
+                              Permissions
+                          </p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link {{ 'dashboard/roles' == request()->path() ? 'active' : '' }}" href="/dashboard/roles">
+                          <i class="nav-icon fas fa-tree"></i>
+                          <p>
+                              Roles
+                          </p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link {{ 'dashboard/createadmins' == request()->path() ? 'active' : '' }}" href="/dashboard/createadmins">
+                          <i class="nav-icon fas fa-tree"></i>
+                          <p>
+                            Create Admin Users
+                          </p>
+                      </a>
+                  </li>
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

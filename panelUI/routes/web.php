@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Contracts\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +65,9 @@ Route::prefix('dashboard')->group(function() {
     Route::get('contacts', function () {
         return view('pages.contacts');
     });
+
+    Route::get('permissions', [PermissionController::class, 'index']);
+    Route::get('roles', [RoleController::class, 'index']);
 });
 
 
@@ -75,3 +81,29 @@ Route::post('/product/created', [ProductController::class, 'store']);
 Route::put('/products/edit/{product}', [ProductController::class, 'update']);
 // DELETE
 Route::delete('/products/{product}', [ProductController::class, 'delete'])->middleware('can:delete-product');
+
+
+// Permission CRUD
+// GET
+Route::get('/create/permissions', [PermissionController::class, 'create']);
+Route::get('/edit/permissions/{id}', [PermissionController::class, 'edit']);
+
+// POST
+Route::post('/permissions/create', [PermissionController::class, 'store']);
+// PUT
+Route::put('/permissions/edit/{permission}', [PermissionController::class, 'update']);
+// DELETE
+Route::delete('/permissions/delete/{permission}', [PermissionController::class, 'delete']);
+
+
+// Role CRUD
+// GET
+Route::get('/create/roles', [RoleController::class, 'create']);
+Route::get('/edit/roles/{id}', [RoleController::class, 'edit']);
+
+// POST
+Route::post('/roles/create', [RoleController::class, 'store']);
+// PUT
+Route::put('/roles/edit/{role}', [RoleController::class, 'update']);
+// DELETE
+Route::delete('/roles/delete/{route}', [RoleController::class, 'delete']);

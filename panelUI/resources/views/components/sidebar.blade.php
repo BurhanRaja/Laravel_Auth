@@ -94,6 +94,7 @@
                           </p>
                       </a>
                   </li>
+                  @if (auth('admin')->user()->can('create-permissions'))
                   <li class="nav-item">
                       <a class="nav-link {{ 'dashboard/permissions' == request()->path() ? 'active' : '' }}" href="/dashboard/permissions">
                           <i class="nav-icon fas fa-tree"></i>
@@ -102,22 +103,27 @@
                           </p>
                       </a>
                   </li>
+                  @endif
+                  @if (auth('admin')->user()->can('create-roles'))
                   <li class="nav-item">
                       <a class="nav-link {{ 'dashboard/roles' == request()->path() ? 'active' : '' }}" href="/dashboard/roles">
-                          <i class="nav-icon fas fa-tree"></i>
-                          <p>
-                              Roles
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link {{ 'dashboard/createadmins' == request()->path() ? 'active' : '' }}" href="/dashboard/createadmins">
-                          <i class="nav-icon fas fa-tree"></i>
-                          <p>
+                        <i class="nav-icon fas fa-tree"></i>
+                        <p>
+                            Roles
+                        </p>
+                    </a>
+                </li>
+                @endif
+                @if (auth('admin')->user()->can('create-admin-user'))
+                <li class="nav-item">
+                    <a class="nav-link {{ 'dashboard/createadmins' == request()->path() ? 'active' : '' }}" href="/dashboard/createadmins">
+                        <i class="nav-icon fas fa-tree"></i>
+                        <p>
                             Create Admin Users
-                          </p>
-                      </a>
-                  </li>
+                        </p>
+                    </a>
+                </li>
+                @endif
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
@@ -47,7 +48,7 @@ Route::prefix('dashboard')->group(function() {
         return view('pages.home');
     });
 
-    Route::get('products', [ProductController::class, 'show']);
+    Route::get('products', [ProductController::class, 'show'])->middleware('permission:show-products,admin');
 
     Route::get('customers', function () {
         return view('pages.customers');
@@ -65,44 +66,57 @@ Route::prefix('dashboard')->group(function() {
         return view('pages.contacts');
     });
 
-    Route::get('permissions', [PermissionController::class, 'index']);
-    Route::get('roles', [RoleController::class, 'index']);
+    Route::get('permissions', [PermissionController::class, 'index'])->middleware('permission:show-permissions,admin');
+    Route::get('roles', [RoleController::class, 'index'])->middleware('permission:show-roles,admin');
+    Route::get('createadmins', [AdminController::class, 'index'])->middleware('permission:show-admin-user,admin');
 });
 
 
 // Product CRUD
 // GET
-Route::get('/create/product', [ProductController::class, 'create'])->middleware('can:create-product');
-Route::get('/edit/product/{id}', [ProductController::class, 'edit'])->middleware('can:edit-product');
+Route::get('/create/product', [ProductController::class, 'create'])->middleware('permission:create-product,admin');
+Route::get('/edit/product/{id}', [ProductController::class, 'edit'])->middleware('permission:edit-product,admin');
 // POST
 Route::post('/product/created', [ProductController::class, 'store']);
 // PUT
 Route::put('/products/edit/{product}', [ProductController::class, 'update']);
 // DELETE
-Route::delete('/products/{product}', [ProductController::class, 'delete'])->middleware('can:delete-product');
+Route::delete('/products/{product}', [ProductController::class, 'delete'])->middleware('permission:delete-product,admin');
 
 
 // Permission CRUD
 // GET
-Route::get('/create/permissions', [PermissionController::class, 'create']);
-Route::get('/edit/permissions/{id}', [PermissionController::class, 'edit']);
+Route::get('/create/permissions', [PermissionController::class, 'create'])->middleware('permission:create-permissions,admin');
+Route::get('/edit/permissions/{id}', [PermissionController::class, 'edit'])->middleware('permission:edit-permissions,admin');
 
 // POST
 Route::post('/permissions/create', [PermissionController::class, 'store']);
 // PUT
 Route::put('/permissions/edit/{permission}', [PermissionController::class, 'update']);
 // DELETE
-Route::delete('/permissions/delete/{permission}', [PermissionController::class, 'delete']);
+Route::delete('/permissions/delete/{permission}', [PermissionController::class, 'delete'])->middleware('permission:delete-permissions,admin');
 
 
 // Role CRUD
 // GET
-Route::get('/create/roles', [RoleController::class, 'create']);
-Route::get('/edit/roles/{id}', [RoleController::class, 'edit']);
+Route::get('/create/roles', [RoleController::class, 'create'])->middleware('role:super-admin,admin');
+Route::get('/edit/roles/{id}', [RoleController::class, 'edit'])->middleware('permission:edit-roles,admin');
 
 // POST
 Route::post('/roles/create', [RoleController::class, 'store']);
 // PUT
 Route::put('/roles/edit/{role}', [RoleController::class, 'update']);
 // DELETE
-Route::delete('/roles/delete/{role}', [RoleController::class, 'delete']);
+Route::delete('/roles/delete/{role}', [RoleController::class, 'delete'])->middleware('permission:delete-roles,admin');
+
+
+// Admins CRUD
+// GET
+Route::get('/create/admins', [AdminController::class, 'create'])->middleware('permission:create-admin-user,admin');
+Route::get('/edit/admins/{id}', [AdminController::class, 'edit'])->middleware('permission:edit-admin-user,admin');
+// POST
+Route::post('/admins/store', [AdminController::class, 'store']);
+// PUT
+Route::put('/admins/edit/{admin}', [AdminController::class, 'update']);
+// DELETE
+Route::delete('/admins/delete/{admin}', [AdminController::class, 'delete'])->middleware('permission:delete-admin-user,admin');

@@ -36,7 +36,7 @@
                             <td><a href="/edit/product/{{ $product->id }}" type="button"><i
                                         class="fas fa-edit"></i></a>
                             </td>
-                        @endcan
+                        @endif
                         @if (auth('admin')->user()->can('delete-product'))
                             <td>
                                 <form action="/products/{{ $product->id }}" method="POST">

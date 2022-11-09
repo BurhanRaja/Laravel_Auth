@@ -7,7 +7,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form action="/roles/create" method="POST">
+        <form action="/permissions/create" method="POST">
             @csrf
             <div class="card-body">
                 <div class="form-group">

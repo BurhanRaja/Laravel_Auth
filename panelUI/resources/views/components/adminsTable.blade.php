@@ -1,10 +1,10 @@
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Role Table</h3>
+        <h3 class="card-title">Permission Table</h3>
 
         <div class="card-tools">
             <div class="input-group input-group-sm">
-                <a href="/create/roles" type="button" class="btn btn-primary mx-2">Add Item <i class="fas fa-plus"></i></a>
+                <a href="/create/admins" type="button" class="btn btn-primary mx-2">Add Item <i class="fas fa-plus"></i></a>
             </div>
 
         </div>
@@ -15,28 +15,22 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Roles</th>
                     <th>Permissions</th>
+                    <th>Roles</th>
                     <th></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($roles as $key => $role)
+                @foreach ($admins as $key => $admin)
                     <tr>
-                        <td>{{ $role->id }}</td>
-                        <td>{{ $role->name }}</td>
-                        <td>
-                            <div class="d-flex flex-wrap w-75">
-                            @foreach ($role->getPermissionNames() as $item)
-                                <span class="bg-secondary text-white m-1 p-1 rounded text-sm" style="">{{$item}}</span>
-                            @endforeach
-                        </div>
-                        </td>
-                        <td><a href="/edit/roles/{{$role->id}}" type="button"><i class="fas fa-edit"></i></a>
+                        <td>{{ $admin->id }}</td>
+                        <td>{{ $admin->name }}</td>
+                        <td>{{ $admin->getRoleNames()->first() }}</td>
+                        <td><a href="/edit/admins/{{$admin->id}}" type="button"><i class="fas fa-edit"></i></a>
                         </td>
                         <td>
-                            <form action="/roles/delete/{{$role->id}}" method="POST">
+                            <form action="/admins/delete/{{$admin->id}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn"><i class="fas fa-trash-alt"></i></button>

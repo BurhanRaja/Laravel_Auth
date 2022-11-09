@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
@@ -29,8 +30,13 @@ class PermissionController extends Controller
             'guard_name' => 'admin'
         ]);
 
+
         if ($permission) {
+
+            $superAdmin = Role::findByName('super-admin', 'admin');
+            $superAdmin->givePermissionTo($permission);
             return redirect('/dashboard/permissions')->with('message', 'Permission Successfully Created');
+
         } else {
             return redirect('/create/permissions')->with('message', 'Some Error Ocurred.');
         }

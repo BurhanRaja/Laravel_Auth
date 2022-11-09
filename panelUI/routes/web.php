@@ -6,7 +6,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Contracts\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,4 +105,4 @@ Route::post('/roles/create', [RoleController::class, 'store']);
 // PUT
 Route::put('/roles/edit/{role}', [RoleController::class, 'update']);
 // DELETE
-Route::delete('/roles/delete/{route}', [RoleController::class, 'delete']);
+Route::delete('/roles/delete/{role}', [RoleController::class, 'delete']);

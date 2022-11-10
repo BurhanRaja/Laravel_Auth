@@ -10,57 +10,38 @@
         <title>User | Dashboard</title>
     @endif
 
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+
+    <link rel="stylesheet" href="{{asset ('plugins/fontawesome-free/css/all.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset ('dist/css/adminlte.min.css?v=3.2.0')}}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
 
-        @include('components.header')
 
-        @include('components.sidebar')
+    @include('components.header')
 
-
-        <div class="content-wrapper" style="min-height: 214px;">
-            <main class="content">
-                <div class="container-fluid">
-                    @yield('content')
-                </div>
-            </main>
-        </div>
+    @include('components.sidebar')
 
 
-        @include('components.footer')
+    <div class="content-wrapper" style="min-height: 214px;">
+        <main class="content">
+            <div class="container-fluid">
+                @yield('content')
+            </div>
+        </main>
+    </div>
 
+    @include('components.footer')
+    @include('components.flash-message')
 
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+    <script src="{{asset ('plugins/jquery/jquery.min.js')}}"></script>
+
+    <script src="{{asset ('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+    <script src="{{asset ('dist/js/adminlte.min.js?v=3.2.0')}}"></script>
 </body>
 
 </html>

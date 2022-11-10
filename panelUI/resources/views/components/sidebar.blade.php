@@ -2,13 +2,13 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
-          <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-              style="opacity: .8">
-            @if (auth('admin')->user())
-                <span class="brand-text font-weight-light">Admin Dashboard</span>
-            @else
-                <span class="brand-text font-weight-light">User Dashboard</span>
-            @endif
+          <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+              class="brand-image img-circle elevation-3" style="opacity: .8">
+          @if (auth('admin')->user())
+              <span class="brand-text font-weight-light">Admin Dashboard</span>
+          @else
+              <span class="brand-text font-weight-light">User Dashboard</span>
+          @endif
       </a>
 
       <!-- Sidebar -->
@@ -16,14 +16,14 @@
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <div class="image">
-                  <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                  <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
               </div>
               <div class="info">
-                @if (auth('admin')->user())
-                    <a href="#" class="d-block">{{auth('admin')->user()->name}}</a>
-                @else
-                    <a href="#" class="d-block">{{auth()->user()->name}}</a>
-                @endif
+                  @if (auth('admin')->user())
+                      <a href="#" class="d-block">{{ auth('admin')->user()->name }}</a>
+                  @else
+                      <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                  @endif
               </div>
           </div>
 
@@ -55,15 +55,17 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link {{ 'dashboard/products' == request()->path() ? 'active' : '' }}" href="/dashboard/products">
-                        <i class="nav-icon fas fa-store-slash"></i>
+                      <a class="nav-link {{ 'dashboard/products' == request()->path() ? 'active' : '' }}"
+                          href="/dashboard/products">
+                          <i class="nav-icon fas fa-store-slash"></i>
                           <p>
                               Products
                           </p>
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link {{ 'dashboard/customers' == request()->path() ? 'active' : '' }}" href="/dashboard/customers">
+                      <a class="nav-link {{ 'dashboard/customers' == request()->path() ? 'active' : '' }}"
+                          href="/dashboard/customers">
                           <i class="nav-icon fas fa-th"></i>
                           <p>
                               Customers
@@ -71,7 +73,8 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link {{ 'dashboard/messages' == request()->path() ? 'active' : '' }}" href="/dashboard/messages">
+                      <a class="nav-link {{ 'dashboard/messages' == request()->path() ? 'active' : '' }}"
+                          href="/dashboard/messages">
                           <i class="nav-icon fas fa-copy"></i>
                           <p>
                               Messages
@@ -79,7 +82,8 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link  {{ 'dashboard/salesandrevenue' == request()->path() ? 'active' : '' }}" href="/dashboard/salesandrevenue">
+                      <a class="nav-link  {{ 'dashboard/salesandrevenue' == request()->path() ? 'active' : '' }}"
+                          href="/dashboard/salesandrevenue">
                           <i class="nav-icon fas fa-chart-pie"></i>
                           <p>
                               Sales and Revenue
@@ -87,43 +91,47 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link {{ 'dashboard/contacts' == request()->path() ? 'active' : '' }}" href="/dashboard/contacts">
+                      <a class="nav-link {{ 'dashboard/contacts' == request()->path() ? 'active' : '' }}"
+                          href="/dashboard/contacts">
                           <i class="nav-icon fas fa-tree"></i>
                           <p>
                               Contacts
                           </p>
                       </a>
                   </li>
-                  @if (auth('admin')->user()->can('create-permissions'))
-                  <li class="nav-item">
-                      <a class="nav-link {{ 'dashboard/permissions' == request()->path() ? 'active' : '' }}" href="/dashboard/permissions">
-                          <i class="nav-icon fas fa-tree"></i>
-                          <p>
-                              Permissions
-                          </p>
-                      </a>
-                  </li>
+                  @if (auth('admin')->user()->can('show-permissions'))
+                      <li class="nav-item">
+                          <a class="nav-link {{ 'dashboard/permissions' == request()->path() ? 'active' : '' }}"
+                              href="/dashboard/permissions">
+                              <i class="nav-icon fas fa-tree"></i>
+                              <p>
+                                  Permissions
+                              </p>
+                          </a>
+                      </li>
                   @endif
-                  @if (auth('admin')->user()->can('create-roles'))
-                  <li class="nav-item">
-                      <a class="nav-link {{ 'dashboard/roles' == request()->path() ? 'active' : '' }}" href="/dashboard/roles">
-                        <i class="nav-icon fas fa-tree"></i>
-                        <p>
-                            Roles
-                        </p>
-                    </a>
-                </li>
-                @endif
-                @if (auth('admin')->user()->can('create-admin-user'))
-                <li class="nav-item">
-                    <a class="nav-link {{ 'dashboard/createadmins' == request()->path() ? 'active' : '' }}" href="/dashboard/createadmins">
-                        <i class="nav-icon fas fa-tree"></i>
-                        <p>
-                            Create Admin Users
-                        </p>
-                    </a>
-                </li>
-                @endif
+                  @if (auth('admin')->user()->can('show-roles'))
+                      <li class="nav-item">
+                          <a class="nav-link {{ 'dashboard/roles' == request()->path() ? 'active' : '' }}"
+                              href="/dashboard/roles">
+                              <i class="nav-icon fas fa-tree"></i>
+                              <p>
+                                  Roles
+                              </p>
+                          </a>
+                      </li>
+                  @endif
+                  @if (auth('admin')->user()->can('show-admin-user'))
+                      <li class="nav-item">
+                          <a class="nav-link {{ 'dashboard/createadmins' == request()->path() ? 'active' : '' }}"
+                              href="/dashboard/createadmins">
+                              <i class="nav-icon fas fa-tree"></i>
+                              <p>
+                                  Admin Users
+                              </p>
+                          </a>
+                      </li>
+                  @endif
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

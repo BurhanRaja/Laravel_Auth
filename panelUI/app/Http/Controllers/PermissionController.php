@@ -35,10 +35,10 @@ class PermissionController extends Controller
 
             $superAdmin = Role::findByName('super-admin', 'admin');
             $superAdmin->givePermissionTo($permission);
-            return redirect('/dashboard/permissions')->with('message', 'Permission Successfully Created');
+            return redirect('/dashboard/permissions')->with('successMessage', 'Permission Successfully Created.');
 
         } else {
-            return redirect('/create/permissions')->with('message', 'Some Error Ocurred.');
+            return redirect('/create/permissions')->with('errorMessage', 'Some Error Ocurred.');
         }
     }
 
@@ -54,16 +54,25 @@ class PermissionController extends Controller
             'name' => 'required'
         ]);
 
-        $permission->update([
+        $updated = $permission->update([
             'name' => $request->name,
             'guard_name' => 'admin'
         ]);
 
-        return redirect('/dashboard/permissions')->with('message', 'Permission Successfully Updated');
+        if ($updated) {
+            return redirect('/dashboard/permissions')->with('successMessage', 'Permission Successfully Updated.');
+        } else {
+            return redirect('/dashboard/permissions')->with('errorMessage', 'Some Error Occurred.');
+        }
     }
 
     public function delete(Permission $permission) {
-        $permission->delete();
-        return redirect('/dashboard/permissions')->with('message', 'Permission Successfully Deleted');
+        $delete = $permission->delete();
+
+        if ($delete) {
+            return redirect('/dashboard/permissions')->with('successMessage', 'Permission Successfully Deleted.');
+        } else {
+            return redirect('/dashboard/permissions')->with('errorMessage', 'Some Error Occurred.');
+        }
     }
 }

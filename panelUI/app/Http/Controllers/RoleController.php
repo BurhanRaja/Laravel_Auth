@@ -38,9 +38,9 @@ class RoleController extends Controller
 
         if ($role) {
             $role->syncPermissions($request->permissions);
-            return redirect('/dashboard/roles')->with('message', 'role Successfully Created');
+            return redirect('/dashboard/roles')->with('successMessage', 'Role Successfully Created.');
         } else {
-            return redirect('/create/roles')->with('message', 'Some Error Ocurred.');
+            return redirect('/create/roles')->with('errorMessage', 'Some Error Ocurred.');
         }
     }
 
@@ -60,17 +60,24 @@ class RoleController extends Controller
             'name' => 'required'
         ]);
 
-        $role->update([
+        $updated = $role->update([
             'name' => $request->name,
         ]);
 
-        $role->syncPermissions($request->permissions);
-
-        return redirect('/dashboard/roles')->with('message', 'role Successfully Updated');
+        if ($updated) {
+            $role->syncPermissions($request->permissions);
+            return redirect('/dashboard/roles')->with('errorMessage', 'Role Successfully Updated.');
+        } else {
+            return redirect('/dashboard/roles')->with('errorMessage', 'Some Error Ocurred.');
+        }
     }
 
     public function delete(Role $role) {
-        $role->delete();
-        return redirect('/dashboard/roles')->with('message', 'role Successfully Deleted');
+        $deleted = $role->delete();
+        if ($deleted) {
+            return redirect('/dashboard/roles')->with('successMessage', 'Role Successfully Deleted.');
+        } else {
+            return redirect('/dashboard/roles')->with('errorMessage', 'Some Error Occurred.');
+        }
     }
 }

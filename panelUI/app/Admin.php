@@ -30,9 +30,4 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    // Relationship with Product
-    public function product() {
-        return $this->hasMany(Product::class, 'admin_id', 'id');
-    }
 }

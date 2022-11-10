@@ -1,7 +1,9 @@
 <?php
 
-
+use App\Admin;
+use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,7 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleAndPermissionSeeder::class,
         ]);
-
         // ...
     }
 }

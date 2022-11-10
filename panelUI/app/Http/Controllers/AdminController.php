@@ -32,17 +32,17 @@ class AdminController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect('/dashboard')->with('message', 'Successfully Logged in');
+            return redirect('/dashboard')->with('successMessage', 'Successfully Logged in.');
         }
         else {
-            return redirect('/admin/login');
+            return redirect('/admin/login')->with('errorMessge', 'Some Error Occurred.');
         }
     }
 
     public function logout()
     {
         auth('admin')->logout();
-        return redirect('/')->with('message', 'Successfully Logged Out.');
+        return redirect('/')->with('successMessage', 'Successfully Logged Out.');
     }
 
 
@@ -79,7 +79,9 @@ class AdminController extends Controller
         if ($admin) {
             $role = Role::findById($request->role, 'admin');
             $admin->assignRole($role);
-            return redirect('/dashboard/createadmins');
+            return redirect('/dashboard/createadmins')->with('successMessage', 'Admin User Successfully Created.');
+        } else {
+            return redirect('/dashboard/createadmins')->with('successMessage', 'Some Error Occurred.');
         }
 
     }
@@ -97,18 +99,26 @@ class AdminController extends Controller
     }
 
     public function update(Request $request, Admin $admin) {
-        $admin->update([
+        $updated = $admin->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
         $role = Role::findById($request->role, 'admin');
         $admin->assignRole($role);
 
-        return redirect('/dashboard/createadmins');
+        if ($updated) {
+            return redirect('/dashboard/createadmins')->with('successMessage', 'Admin User Successfully Updated.');
+        } else {
+            return redirect('/dashboard/createadmins')->with('errorMessage', 'Some Error Occurred.');
+        }
     }
 
     public function delete(Admin $admin) {
-        $admin->delete();
-        return redirect('/dashboard/createadmins');
+        $deleted = $admin->delete();
+        if ($deleted) {
+            return redirect('/dashboard/createadmins')->with('successMessage', 'Admin User Successfully Deleted.');
+        } else {
+            return redirect('/dashboard/createadmins')->with('errorMessage', 'Some Error Occurred.');
+        }
     }
 }

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,36 +12,9 @@ class ProductController extends Controller
     {
         $product = Product::latest();
 
-        $monthDate[] = [];
-        foreach ($product as $key => $value) {
-            $month = $value->created_at->format('M');
-            $monthDate[$key] = $month;
-        }
-
-        $products = Product::select('id', 'created_at')
-            ->get()
-            ->groupBy(function ($date) {
-                return Carbon::parse($date->created_at)->format('m'); // grouping by months
-            });
-
-        $productmcount = [];
-        $productArr = [];
-
-        foreach ($products as $key => $value) {
-            $productmcount[(int)$key] = count($value);
-        }
-
-        for ($i = 0; $i < 12; $i++) {
-            if (!empty($productmcount[$i])) {
-                $productArr[$i] = $productmcount[$i];
-            } else {
-                $productArr[$i] = 0;
-            }
-        }
-
         return view('pages.products')->with([
             'products' => $product->paginate(10)
-        ])->with(['productArr'=> $productArr]);
+        ])->with('successMessage', "Product Successfully Created.");
     }
 
     public function create()
@@ -59,28 +30,18 @@ class ProductController extends Controller
             'description' => 'required|min:10',
         ]);
 
-        // dd(auth()->user()->id);
-
-        // $poidocument = $request->file('productImg');
-
-        // if (!empty($poidocument)) {
-        //     $poiImg = time() . '_1.' . $poidocument->getClientOriginalExtension();
-        //     $path = public_path() . '/admin/images';
-        //     $poidocument->move($path, $poiImg);
-        // } else {
-        //     $poidocument = '';
-        // }
-
-        $admin_id = auth('admin')->user();
-
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
-            'admin_id' => $admin_id,
             'amount' => $request->amount
         ]);
 
-        return redirect('/dashboard/products');
+        if ($product) {
+            return redirect('/dashboard/products')->with('successMessage', "Product Successfully Created.");
+        }
+        else {
+            return redirect('/dashboard/products')->with('errorMessage', "Some Error Occurred.");
+        }
     }
 
     public function edit($id)
@@ -110,20 +71,30 @@ class ProductController extends Controller
             $poiImg = $product->productImg;
         }
 
-        $product->update([
+        $updated = $product->update([
             'name' => $request->name,
             'description' => $request->description,
             'amount' => $request->amount,
             'productImg' => $poiImg,
         ]);
 
-        return redirect('/dashboard/products');
+        if ($updated) {
+            return redirect('/dashboard/products')->with('successMessage', "Product Successfully Updated.");
+        } else {
+            return redirect('/dashboard/products')->with('errorMessage', "Some Error Occurred.");
+        }
+
     }
 
     // To delete a Product
     public function delete(Product $product)
     {
-        $product->delete();
-        return redirect('/dashboard/products');
+        $deleted = $product->delete();
+
+        if ($deleted) {
+            return redirect('/dashboard/products')->with('successMessage', "Product Successfully Deleted.");
+        } else {
+            return redirect('/dashboard/products')->with('errorMessage', "Some Error Occurred.");
+        }
     }
 }

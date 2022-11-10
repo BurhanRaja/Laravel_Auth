@@ -2,6 +2,7 @@
 
 use App\Admin;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ImpersonateController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -31,6 +32,8 @@ Route::prefix('user')->group(function() {
 
     Route::post('auth/register', [UserController::class, 'store']);
     Route::post('auth/login', [UserController::class, 'authenticate']);
+
+    Route::get('/home', [UserController::class, 'show']);
 });
 
 // Admin
@@ -48,11 +51,9 @@ Route::prefix('dashboard')->group(function() {
         return view('pages.home');
     });
 
-    Route::get('products', [ProductController::class, 'show'])->middleware('permission:show-products,admin');
+    Route::get('products', [ProductController::class, 'show'])->middleware('permission:show-product,admin');
 
-    Route::get('customers', function () {
-        return view('pages.customers');
-    });
+    Route::get('customers', [UserController::class, 'getData']);
 
     Route::get('messages', function () {
         return view('pages.messages');
@@ -120,3 +121,13 @@ Route::post('/admins/store', [AdminController::class, 'store']);
 Route::put('/admins/edit/{admin}', [AdminController::class, 'update']);
 // DELETE
 Route::delete('/admins/delete/{admin}', [AdminController::class, 'delete'])->middleware('permission:delete-admin-user,admin');
+
+
+// Customers
+// Login via super-admin
+Route::group(['middleware' => ['web']], function() {
+    Route::post('/impersonate/{id}', [ImpersonateController::class, 'impersonateIn'])->name('impersonateIn');
+});
+Route::get('/impersonate/logout', [ImpersonateController::class, 'impersonateOut']);
+// Detail Page
+Route::get('/details/{id}', [UserController::class, 'details']);

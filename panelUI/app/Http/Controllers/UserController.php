@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Throwable;
 
 class UserController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('userAuth.register');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validator = $request->validate([
-            'name'=> 'required|min:2',
-            'email'=> 'required|email|unique:users',
+            'name' => 'required|min:2',
+            'email' => 'required|email|unique:users',
             'password' => 'required',
             'confirm_password' => 'required|same:password'
         ]);
@@ -22,26 +26,28 @@ class UserController extends Controller
         $hashPassword = bcrypt($request->password);
 
         $user = User::create([
-            'name'=> $request->name,
-            'email'=> $request->email,
+            'name' => $request->name,
+            'email' => $request->email,
             'password' => $hashPassword
         ]);
 
         if ($user) {
             auth()->login($user);
-            return redirect('/dashboard')->with('message', 'Successfully Registered');
+            return view('/user/home')->with('successMessage', 'Successfully Registered');
         } else {
-            return redirect('/')->with('message', 'Some Error Occured');
+            return redirect('/')->with('errorMessage', 'Some Error Occured');
         }
     }
 
-    public function login() {
+    public function login()
+    {
         return view('userAuth.login');
     }
 
-    public function authenticate(Request $request) {
+    public function authenticate(Request $request)
+    {
         $validator = $request->validate([
-            'email'=> 'required|email|unique:users',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
@@ -54,15 +60,45 @@ class UserController extends Controller
 
         if ($user) {
             $request->session()->regenerate();
-            return redirect('/dashboard')->with('message', 'Successfully Logged in.');
+            return redirect('/user/home')->with('successMessage', 'Successfully Logged in.');
         } else {
-            return redirect('/')->with('message', 'Some Error Occured');
+            return redirect('/')->with('errorMessage', 'Some Error Occured');
         }
     }
 
-    public function logout() {
-        auth()->logout();
-        return redirect('/')->with('message', 'Successfully Logged Out.');
+
+    public function show() {
+        return view('client.home');
     }
 
+    public function logout()
+    {
+        auth()->logout();
+        return redirect('/')->with('successMessage', 'Successfully Logged Out.');
+    }
+
+    public function getData()
+    {
+        $user = User::all();
+        return view('pages.customers', [
+            'users' => $user
+        ]);
+    }
+
+
+    public function customerLogin($id)
+    {
+        $user = User::find($id);
+        $userName = $user->name;
+        auth()->login($user);
+        return redirect('/user/home')->with('successMessage', 'Successfully logged in as a customer.')->with('userName', $userName);
+    }
+
+    public function details($id) {
+        $user = User::find($id);
+
+        return view('customers.customerDetail', [
+            'user' => $user
+        ]);
+    }
 }

@@ -11,9 +11,15 @@ class DatabaseSeeder extends Seeder
     {
         // ...
 
-        $this->call([
-            RoleAndPermissionSeeder::class,
-        ]);
+        // $this->call([
+        //     RoleAndPermissionSeeder::class,
+        // ]);
         // ...
+
+        factory(Admin::class)->create([
+            'name' => 'Burhanuddin',
+            'email' => 'burhan@hello.com',
+            'password' => Hash::make('1234')
+        ]);
     }
 }

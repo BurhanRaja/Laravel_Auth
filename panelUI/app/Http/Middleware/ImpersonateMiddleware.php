@@ -19,7 +19,6 @@ class ImpersonateMiddleware
         if($request->session()->has('impersonated'))
         {
             auth()->onceUsingId($request->session()->get('impersonated'));
-            // auth()->loginUsingId()
         }
 
         return $next($request);

@@ -18,22 +18,42 @@ class UserController extends Controller
     {
         $validator = $request->validate([
             'name' => 'required|min:2',
+            'gender' => 'required',
+            'phone_number' => 'required|numeric',
+            'date_of_birth' => 'required|date',
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'confirm_password' => 'required|same:password'
         ]);
 
+
+        $poidocument = $request->file('userimage');
+
+        $poiImg = '';
+
+        if (!empty($poidocument)) {
+            $poiImg = time() . '_1.' . $poidocument->getClientOriginalExtension();
+            $path = public_path() . '/admin/images';
+            $poidocument->move($path, $poiImg);
+        } else {
+            $poidocument = '';
+        }
+
         $hashPassword = bcrypt($request->password);
 
         $user = User::create([
             'name' => $request->name,
+            'gender' => $request->gender,
+            'phone_number' => $request->phone_number,
+            'date_of_birth' => $request->date_of_birth,
+            'userimage' => $poiImg,
             'email' => $request->email,
             'password' => $hashPassword
         ]);
 
         if ($user) {
             auth()->login($user);
-            return view('/user/home')->with('successMessage', 'Successfully Registered');
+            return redirect('/user/home')->with('successMessage', 'Successfully Registered');
         } else {
             return redirect('/')->with('errorMessage', 'Some Error Occured');
         }

@@ -2,7 +2,9 @@
 
 use App\Admin;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImpersonateController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -20,12 +22,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function() {
+Route::get('/', function () {
     return view('home');
 });
 
 // User
-Route::prefix('user')->group(function() {
+Route::prefix('user')->group(function () {
     Route::get('register', [UserController::class, 'index']);
     Route::get('login', [UserController::class, 'login']);
     Route::get('logout', [UserController::class, 'logout']);
@@ -37,7 +39,7 @@ Route::prefix('user')->group(function() {
 });
 
 // Admin
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->group(function () {
     Route::get('register', [AdminController::class, 'index']);
     Route::get('login', [AdminController::class, 'login']);
     Route::get('logout', [AdminController::class, 'logout']);
@@ -46,10 +48,8 @@ Route::prefix('admin')->group(function() {
     Route::post('auth/login', [AdminController::class, 'authenticate']);
 });
 
-Route::prefix('dashboard')->group(function() {
-    Route::get('', function () {
-        return view('pages.home');
-    });
+Route::prefix('dashboard')->group(function () {
+    Route::get('', [HomeController::class, 'index']);
 
     Route::get('products', [ProductController::class, 'show'])->middleware('permission:show-product,admin');
 
@@ -70,6 +70,9 @@ Route::prefix('dashboard')->group(function() {
     Route::get('permissions', [PermissionController::class, 'index'])->middleware('permission:show-permissions,admin');
     Route::get('roles', [RoleController::class, 'index'])->middleware('permission:show-roles,admin');
     Route::get('createadmins', [AdminController::class, 'index'])->middleware('permission:show-admin-user,admin');
+
+    Route::get('/create/leads', [LeadController::class, 'create']);
+    Route::get('/leads', [LeadController::class, 'index']);
 });
 
 
@@ -125,9 +128,18 @@ Route::delete('/admins/delete/{admin}', [AdminController::class, 'delete'])->mid
 
 // Customers
 // Login via super-admin
-Route::group(['middleware' => ['web']], function() {
+Route::group(['middleware' => ['web']], function () {
     Route::post('/impersonate/{id}', [ImpersonateController::class, 'impersonateIn'])->name('impersonateIn');
 });
 Route::get('/impersonate/logout', [ImpersonateController::class, 'impersonateOut']);
 // Detail Page
 Route::get('/details/{id}', [UserController::class, 'details']);
+
+
+// Leads
+Route::post('/leads/create', [LeadController::class, 'store']);
+Route::get('edit/leads/{id}', [LeadController::class, 'edit']);
+
+Route::put('/leads/edit/{lead}', [LeadController::class, 'update']);
+
+Route::delete('/leads/{lead}', [LeadController::class, 'delete']);

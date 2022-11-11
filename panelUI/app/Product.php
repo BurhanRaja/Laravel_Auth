@@ -8,6 +8,6 @@ use App\Admin;
 class Product extends Model
 {
     protected $fillable = [
-        'name'. 'admin_id', 'description', 'productImg', 'amount'
+        'name', 'admin_id', 'description', 'productImg', 'amount'
     ];
 }

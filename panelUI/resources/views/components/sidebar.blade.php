@@ -89,50 +89,70 @@
                               Sales and Revenue
                           </p>
                       </a>
-                  </li>
+
                   <li class="nav-item">
-                      <a class="nav-link {{ 'dashboard/contacts' == request()->path() ? 'active' : '' }}"
-                          href="/dashboard/contacts">
-                          <i class="nav-icon fas fa-tree"></i>
+                      <a href="#" class="nav-link">
+                          <i class="nav-icon far fa-plus-square"></i>
                           <p>
-                              Contacts
+                              Leads
+                              <i class="fas fa-angle-left right"></i>
                           </p>
                       </a>
-                  </li>
-                  @if (auth('admin')->user()->can('show-permissions'))
-                      <li class="nav-item">
-                          <a class="nav-link {{ 'dashboard/permissions' == request()->path() ? 'active' : '' }}"
-                              href="/dashboard/permissions">
-                              <i class="nav-icon fas fa-tree"></i>
-                              <p>
-                                  Permissions
-                              </p>
-                          </a>
-                      </li>
-                  @endif
-                  @if (auth('admin')->user()->can('show-roles'))
-                      <li class="nav-item">
-                          <a class="nav-link {{ 'dashboard/roles' == request()->path() ? 'active' : '' }}"
-                              href="/dashboard/roles">
-                              <i class="nav-icon fas fa-tree"></i>
-                              <p>
-                                  Roles
-                              </p>
-                          </a>
-                      </li>
-                  @endif
-                  @if (auth('admin')->user()->can('show-admin-user'))
-                      <li class="nav-item">
-                          <a class="nav-link {{ 'dashboard/createadmins' == request()->path() ? 'active' : '' }}"
-                              href="/dashboard/createadmins">
-                              <i class="nav-icon fas fa-tree"></i>
-                              <p>
-                                  Admin Users
-                              </p>
-                          </a>
-                      </li>
-                  @endif
-              </ul>
+                      <ul class="nav nav-treeview pl-4">
+                        <li class="nav-item">
+                            <a href="/dashboard/create/leads" class="nav-link {{'dashboard/create/leads' === request()->path() ? 'active' : ''}}">
+                              <p>Create Lead</p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="/dashboard/leads" class="nav-link  {{'dashboard/leads' === request()->path() ? 'active' : ''}}">
+                              <p>View Leads</p>
+                            </a>
+                          </li>
+                      </ul>
+                          <li class="nav-item">
+                              <a class="nav-link {{ 'dashboard/contacts' == request()->path() ? 'active' : '' }}"
+                                  href="/dashboard/contacts">
+                                  <i class="nav-icon fas fa-tree"></i>
+                                  <p>
+                                      Contacts
+                                  </p>
+                              </a>
+                          </li>
+                          @if (auth('admin')->user()->can('show-permissions'))
+                              <li class="nav-item">
+                                  <a class="nav-link {{ 'dashboard/permissions' == request()->path() ? 'active' : '' }}"
+                                      href="/dashboard/permissions">
+                                      <i class="nav-icon fas fa-tree"></i>
+                                      <p>
+                                          Permissions
+                                      </p>
+                                  </a>
+                              </li>
+                          @endif
+                          @if (auth('admin')->user()->can('show-roles'))
+                              <li class="nav-item">
+                                  <a class="nav-link {{ 'dashboard/roles' == request()->path() ? 'active' : '' }}"
+                                      href="/dashboard/roles">
+                                      <i class="nav-icon fas fa-tree"></i>
+                                      <p>
+                                          Roles
+                                      </p>
+                                  </a>
+                              </li>
+                          @endif
+                          @if (auth('admin')->user()->can('show-admin-user'))
+                              <li class="nav-item">
+                                  <a class="nav-link {{ 'dashboard/createadmins' == request()->path() ? 'active' : '' }}"
+                                      href="/dashboard/createadmins">
+                                      <i class="nav-icon fas fa-tree"></i>
+                                      <p>
+                                          Admin Users
+                                      </p>
+                                  </a>
+                              </li>
+                          @endif
+                      </ul>
           </nav>
           <!-- /.sidebar-menu -->
       </div>

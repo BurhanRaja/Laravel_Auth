@@ -33,7 +33,7 @@ class UserController extends Controller
 
         if (!empty($poidocument)) {
             $poiImg = time() . '_1.' . $poidocument->getClientOriginalExtension();
-            $path = public_path() . '/admin/images';
+            $path = public_path() . '/user/images';
             $poidocument->move($path, $poiImg);
         } else {
             $poidocument = '';

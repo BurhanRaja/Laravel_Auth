@@ -15,6 +15,14 @@ class CreateLeads extends Migration
     {
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('country_code');
+            $table->bigInteger('mobile');
+            $table->mediumText('subject');
+            $table->string('country');
+            $table->string('state');
+            $table->string('city');
             $table->timestamps();
         });
     }

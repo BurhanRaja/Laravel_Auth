@@ -64,7 +64,7 @@
     <!-- /.card -->
 
     <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    @push('scripts')
     <script>
         $(document).on("change", "#disable-equipment-checkboxes", function() {
             if ($(this).prop('checked')) {
@@ -74,4 +74,5 @@
             }
         });
     </script>
+@endpush
 @endsection

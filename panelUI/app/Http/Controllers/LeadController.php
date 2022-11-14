@@ -2,15 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LeadExport;
 use App\Lead;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LeadController extends Controller
 {
     public function index() {
-        $leads = Lead::latest()->filter(request(['search']))->get();
-
+        $leads = Lead::all();
         return view('pages.leads.allLeads', [
+            'leads' => $leads
+        ]);
+    }
+
+    public function search(Request $request) {
+        $leads = Lead::all();
+
+        if ($request->keyword != '') {
+            $leads = Lead::where('name' , 'like' , '%' . request('keyword') . '%')->orWhere('email' , 'like' , '%' . request('keyword') . '%')->orWhere('mobile' , 'like' , '%' . request('keyword') . '%')->orWhere('country' , 'like' , '%' . request('keyword') . '%')->orWhere('state' , 'like' , '%' . request('keyword') . '%')->orWhere('city' , 'like' , '%' . request('keyword') . '%')->orWhere('subject' , 'like' , '%' . request('keyword') . '%')->get();
+        }
+
+        return response()->json([
             'leads' => $leads
         ]);
     }
@@ -98,5 +112,15 @@ class LeadController extends Controller
         }
     }
 
+    public function getExcel()
+    {
+        return Excel::download(new LeadExport, 'leads.xlsx');
+    }
 
+    public function getPdf() {
+        $leads = Lead::all();
+        view()->share('leads', $leads);
+        $pdf = Pdf::loadView('downloadFiles.samplePdf', ['leads' => $leads]);
+        return $pdf->download('leads.pdf');
+    }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\LeadController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,7 +54,7 @@ Route::prefix('dashboard')->group(function () {
 
     Route::get('products', [ProductController::class, 'show'])->middleware('permission:show-product,admin');
 
-    Route::get('customers', [UserController::class, 'getData']);
+    Route::get('customers', [UserController::class, 'getData'])->name('user.all');
 
     Route::get('messages', function () {
         return view('pages.messages');
@@ -72,7 +73,8 @@ Route::prefix('dashboard')->group(function () {
     Route::get('createadmins', [AdminController::class, 'index'])->middleware('permission:show-admin-user,admin');
 
     Route::get('/create/leads', [LeadController::class, 'create']);
-    Route::get('/leads', [LeadController::class, 'index']);
+    Route::get('/leads', [LeadController::class, 'index'])->name('leads.all');
+    Route::post('/leads/search', [LeadController::class, 'search'])->name('leads.search');
 });
 
 
@@ -143,3 +145,7 @@ Route::get('edit/leads/{id}', [LeadController::class, 'edit']);
 Route::put('/leads/edit/{lead}', [LeadController::class, 'update']);
 
 Route::delete('/leads/{lead}', [LeadController::class, 'delete']);
+
+// Download Leads
+Route::get('/download/excel', [LeadController::class, 'getExcel']);
+Route::get('/download/pdf', [LeadController::class, 'getPdf']);

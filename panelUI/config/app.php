@@ -166,11 +166,8 @@ return [
          * Package Service Providers...
          */
 
-<<<<<<< HEAD
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-=======
->>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
         /*
          * Application Service Providers...
          */
@@ -231,12 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-<<<<<<< HEAD
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-=======
-
->>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
     ],
 
 ];

@@ -20,12 +20,12 @@ Route::get('/', function () {
 });
 
 // ? User
-Route::get('/user/login', [UserController::class, 'login']);
+Route::get('/user/login', [UserController::class, 'login'])->name('login');
 Route::post('/user/auth/login', [UserController::class, 'authenticate']);
 Route::get('/user/logout', [UserController::class, 'logout']);
 Route::post('/user/auth/registered', [UserController::class, 'store']);
 Route::get('/user/register', [UserController::class, 'create']);
-Route::get('/user/dashboard', function() {
+Route::get('/user/dashboard', function () {
     return view('user.dashboardPanel');
 });
 
@@ -35,6 +35,6 @@ Route::post('/admin/auth/login', [AdminController::class, 'authenticate']);
 Route::get('/admin/logout', [AdminController::class, 'logout']);
 Route::post('/admin/auth/registered', [AdminController::class, 'store']);
 Route::get('/admin/register', [AdminController::class, 'create']);
-Route::get('/admin/dashboard', function() {
+Route::get('/admin/dashboard', function () {
     return view('admin.dashboardPanel');
-});
+})->middleware('adminAuth');

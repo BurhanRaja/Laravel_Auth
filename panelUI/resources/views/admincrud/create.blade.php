@@ -64,7 +64,11 @@
     <!-- /.card -->
 
     <!-- jQuery -->
+<<<<<<< HEAD
     @push('scripts')
+=======
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
     <script>
         $(document).on("change", "#disable-equipment-checkboxes", function() {
             if ($(this).prop('checked')) {
@@ -74,5 +78,8 @@
             }
         });
     </script>
+<<<<<<< HEAD
 @endpush
+=======
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
 @endsection

@@ -8,7 +8,10 @@ use App\Http\Controllers\LeadController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+<<<<<<< HEAD
 use App\Http\Controllers\SearchController;
+=======
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,7 +57,11 @@ Route::prefix('dashboard')->group(function () {
 
     Route::get('products', [ProductController::class, 'show'])->middleware('permission:show-product,admin');
 
+<<<<<<< HEAD
     Route::get('customers', [UserController::class, 'getData'])->name('user.all');
+=======
+    Route::get('customers', [UserController::class, 'getData']);
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
 
     Route::get('messages', function () {
         return view('pages.messages');
@@ -73,8 +80,12 @@ Route::prefix('dashboard')->group(function () {
     Route::get('createadmins', [AdminController::class, 'index'])->middleware('permission:show-admin-user,admin');
 
     Route::get('/create/leads', [LeadController::class, 'create']);
+<<<<<<< HEAD
     Route::get('/leads', [LeadController::class, 'index'])->name('leads.all');
     Route::post('/leads/search', [LeadController::class, 'search'])->name('leads.search');
+=======
+    Route::get('/leads', [LeadController::class, 'index']);
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
 });
 
 
@@ -145,7 +156,10 @@ Route::get('edit/leads/{id}', [LeadController::class, 'edit']);
 Route::put('/leads/edit/{lead}', [LeadController::class, 'update']);
 
 Route::delete('/leads/{lead}', [LeadController::class, 'delete']);
+<<<<<<< HEAD
 
 // Download Leads
 Route::get('/download/excel', [LeadController::class, 'getExcel']);
 Route::get('/download/pdf', [LeadController::class, 'getPdf']);
+=======
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4

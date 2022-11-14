@@ -2,21 +2,32 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Exports\LeadExport;
 use App\Lead;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+=======
+use App\Lead;
+use Illuminate\Http\Request;
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
 
 class LeadController extends Controller
 {
     public function index() {
+<<<<<<< HEAD
         $leads = Lead::all();
+=======
+        $leads = Lead::latest()->filter(request(['search']))->get();
+
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
         return view('pages.leads.allLeads', [
             'leads' => $leads
         ]);
     }
 
+<<<<<<< HEAD
     public function search(Request $request) {
         $leads = Lead::all();
 
@@ -29,6 +40,8 @@ class LeadController extends Controller
         ]);
     }
 
+=======
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
     public function create() {
 
         return view('pages.leads.leadsCreate');
@@ -112,6 +125,7 @@ class LeadController extends Controller
         }
     }
 
+<<<<<<< HEAD
     public function getExcel()
     {
         return Excel::download(new LeadExport, 'leads.xlsx');
@@ -123,4 +137,7 @@ class LeadController extends Controller
         $pdf = Pdf::loadView('downloadFiles.samplePdf', ['leads' => $leads]);
         return $pdf->download('leads.pdf');
     }
+=======
+
+>>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
 }

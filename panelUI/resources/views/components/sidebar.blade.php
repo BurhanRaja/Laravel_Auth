@@ -29,7 +29,6 @@
 
           <!-- SidebarSearch Form -->
           <div class="form-inline">
-<<<<<<< HEAD
             <form action="" method="post">
               <div class="input-group" data-widget="sidebar-search">
                   <input class="form-control form-control-sidebar" id="allSearch" type="search" placeholder="Search"
@@ -38,17 +37,6 @@
                 </div>
             </div>
         </form>
-=======
-              <div class="input-group" data-widget="sidebar-search">
-                  <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                      aria-label="Search">
-                  <div class="input-group-append">
-                      <button class="btn btn-sidebar">
-                          <i class="fas fa-search fa-fw"></i>
-                      </button>
-                  </div>
-              </div>
->>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
           </div>
 
           <!-- Sidebar Menu -->
@@ -169,10 +157,3 @@
       </div>
       <!-- /.sidebar -->
   </aside>
-<<<<<<< HEAD
-
-  @push('scripts')
-
-  @endpush
-=======
->>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4

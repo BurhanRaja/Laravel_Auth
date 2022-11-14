@@ -43,11 +43,8 @@
     <script src="{{asset ('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
     <script src="{{asset ('dist/js/adminlte.min.js?v=3.2.0')}}"></script>
-<<<<<<< HEAD
 
     @stack('scripts')
-=======
->>>>>>> 89877422d97cb20677346675c02b6fd90e6edda4
 </body>
 
 </html>

@@ -21,6 +21,7 @@
                     <th>Subject</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -78,6 +79,8 @@ function search() {
                 <td>${res.leads[i].city}</td>
                 <td>${res.leads[i].subject}</td>
                 <td><a href="/edit/leads/${ res.leads[i].id }" type="button"><i class="fas fa-edit"></i></a>
+                </td>
+                <td><a href="/send-email/${ res.leads[i].id }" type="button"><i class="fa fa-envelope"></i></a>
                 </td>
                 <td>
                     <form action="/leads/${ res.leads[i].id }" method="POST">

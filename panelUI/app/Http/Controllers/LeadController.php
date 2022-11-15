@@ -120,7 +120,7 @@ class LeadController extends Controller
     public function getPdf() {
         $leads = Lead::all();
         view()->share('leads', $leads);
-        $pdf = Pdf::loadView('downloadFiles.samplePdf', ['leads' => $leads]);
+        $pdf = Pdf::loadView('downloadFiles.samplePdf', ['leads' => $leads])->setPaper(array(0, 0, 750, 1000));
         return $pdf->download('leads.pdf');
     }
 }

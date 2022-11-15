@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <head>
     <title>Leads-pdf</title>
     <style>
@@ -29,10 +29,10 @@
             <th>Email</th>
             <th>Country Code</th>
             <th>Mobile</th>
+            <th>Subject</th>
             <th>Country</th>
             <th>State</th>
             <th>City</th>
-            <th>Subject</th>
         </tr>
         @foreach ($leads as $key => $lead)
         <tr>
@@ -41,10 +41,10 @@
             <td>{{ $lead->email }}</td>
             <td>{{ $lead->country_code }}</td>
             <td>{{ $lead->mobile }}</td>
+            <td>{{ $lead->subject }}</td>
             <td>{{ $lead->country }}</td>
             <td>{{ $lead->state }}</td>
             <td>{{ $lead->city }}</td>
-            <td>{{ $lead->subject }}</td>
         </tr>
         @endforeach
     </table>
